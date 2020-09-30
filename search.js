@@ -57,6 +57,18 @@ class BinarySearchTree {
         }
         console.log(this.key)
     }
+
+    bfs() {
+        const queue = [this];
+        const values = [] 
+        while (queue.length) {
+            const node = queue.shift();
+            values.push(node.value);
+            node.left && queue.push(node.left);
+            node.right && queue.push(node.right);
+        }
+        console.log(values);
+    }
 }
 
 function binarySearch(array, value, start, end, c = 0) {
@@ -251,8 +263,89 @@ function makeTree(array, start=0, end=array.length) {
     return node;
 }
 
+function makeBDT(array, start=0, end=array.length) {
+    if(start >= end){ 
+        return null
+     } 
+
+    const middle = Math.floor((end + start) / 2); 
+    const key = array[middle].key;
+    const value = array[middle].value; 
+    const node = new BinarySearchTree(key,value);
+
+    node.left = makeBDT(array, start, middle);
+    node.right = makeBDT(array, middle +1, end);
+
+    return node;
+}
+
 let arrayFive = [25, 15, 50, 10, 24, 35, 70, 4, 12, 18, 31, 44, 66, 90, 22];
 arrayFive = arrayFive.sort((a, b) => {return a - b});
 
 let testTree = makeTree(arrayFive);
 testTree.postOrder()
+
+let commandRank = [
+    {
+        key: 6,
+        value: 'Lieutenant Selar'
+    },
+    {
+        key: 2,
+        value: 'Lt. Cmdr. Worf'
+    },
+    {   
+        key: 3,
+        value: 'Commander Riker'
+    },
+    {
+        key: 4, 
+        value: 'Lt. Cmdr. LaForge'
+    },
+    {   
+        key: 5,
+        value: 'Captain Picard'
+    },
+    {
+        key: 8,
+        value: 'Lt. Cmdr. Crusher'
+    },
+    {
+        key: 7,
+        value: 'Commander Data'
+    },
+    {
+        key: 1,
+        value: 'Lieutenant security-officer'
+    },
+]
+
+let commandRankTree = makeBDT(commandRank);
+commandRankTree.bfs();
+
+
+
+
+/*
+captain picard - a
+commander riker - b
+commander data - c
+lt cmdr worf - d
+lt cmdr laforge - e
+lt cmdr crusher - f
+lieutenant sec-off - g
+lieut selar - h
+
+a
+(left b 
+    (left d 
+        (left g, right null), 
+    right e 
+        (left null, right null)), 
+right c 
+    (left null, 
+        
+    right f 
+        (left h, right null ))
+)
+*/
