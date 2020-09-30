@@ -236,18 +236,6 @@ let books = [
   {title: "Testing", deweyValue: 100.4},
 ];
 
-
- 
-
-
-
-// in-order = step left, process node, step right
-
-
-// post-order = step left, step right, process node
-
-
-
 function makeTree(array, start=0, end=array.length) {
     if(start >= end){ 
         return null
