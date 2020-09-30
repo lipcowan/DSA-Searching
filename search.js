@@ -1,3 +1,37 @@
+class BinarySearchTree {
+    constructor(key = null, value = null, parent = null) {
+        this.key = key;
+        this.value = value;
+        this.parent = parent;
+        this.left = null;
+        this.right = null;
+    }
+
+    insert(key, value) {
+        if(this.key == null) {
+            this.key = key;
+            this.value = value;
+        }
+        else if (key < this.key) {
+            if (this.left == null) {
+                this.left = new BinarySearchTree(key,value)
+            }
+            else {
+                this.left.insert(key,value)
+            }
+        }
+
+        else {
+            if (this.right == null) {
+                this.right = new BinarySearchTree(key,value)
+            }
+            else {
+                this.right.insert(key,value)
+            }
+        }
+    }
+}
+
 function binarySearch(array, value, start, end, c = 0) {
   var start = start === undefined ? 0 : start;
   var end = end === undefined ? array.length : end;
@@ -178,3 +212,44 @@ let books = [
 ];
 
 console.log(deweySearch(books, 600.1, "Coding 101"));
+
+/* 
+pre-order = process node, step left, step right
+console.log(node)  
+if (this.left) {
+        this.left.dsfPreOrder();
+    }
+
+    if (this.right) {
+        this.right.dsfPreOrder();
+    }
+}
+in-order = step left, process node, step right
+
+
+post-order = step left, step right, process node
+
+*/
+
+// function makeTree(array, start=0, end=array.length) {
+//     if(start >= end){ 
+//         return null
+//      } 
+
+//     const middle = Math.floor((end + start) / 2); 
+//     const value = array[middle]; 
+//     const node = new BinarySearchTree(value);
+
+//     node.left = makeTree(array, start, middle);
+//     node.right = makeTree(array, middle +1, end);
+
+//     console.log(node.key);
+// }
+
+let arrayFive = [25, 15, 50, 10, 24, 35, 70, 4, 12, 18, 31, 44, 66, 90, 22];
+
+console.log(arrayFive.sort());
+
+// console.log(makeTree(arrayFive));
+
+let testTree = new BinarySearchTree()
